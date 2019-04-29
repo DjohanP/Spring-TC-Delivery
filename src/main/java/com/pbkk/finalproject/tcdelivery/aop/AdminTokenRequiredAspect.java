@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
+import com.pbkk.finalproject.tcdelivery.model.Token;
 import com.pbkk.finalproject.tcdelivery.service.SecurityServiceImpl;
 
 import io.jsonwebtoken.Claims;
@@ -31,11 +32,12 @@ public class AdminTokenRequiredAspect {
 		
 		// checks for token in request header
 		String tokenInHeader = request.getHeader("token");
+		Token tokenDB=tokenDAO.getByStringToken(tokenInHeader);
 		
 		if(StringUtils.isEmpty(tokenInHeader)){
 			throw new IllegalArgumentException("Empty token");
 		}
-		if(tokenDAO.getByStringToken(tokenInHeader)==null)
+		if(tokenDB==null)
 		{
 			throw new IllegalArgumentException("User token is not authorized");
 		}
@@ -50,7 +52,7 @@ public class AdminTokenRequiredAspect {
 		
 		String subject = claims.getSubject();
 		
-		if(subject.split("=").length != 2 || new Integer(subject.split("=")[1]) != 3){
+		if(subject.split("=").length != 2 || new Integer(subject.split("=")[1]) != 3||new Integer(subject.split("=")[0])!=tokenDB.getIdUser()){
 			throw new IllegalArgumentException("User token is not authorized");
 		}		
 	}
