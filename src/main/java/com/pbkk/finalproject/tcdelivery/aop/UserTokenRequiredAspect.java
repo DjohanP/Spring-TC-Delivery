@@ -53,7 +53,7 @@ public class UserTokenRequiredAspect {
 		
 		String subject = claims.getSubject();
 		
-		if(subject.split("=").length != 2||new Integer(subject.split("=")[0])!=tokenDB.getIdUser()){
+		if(subject.split("=").length != 2){
 			throw new IllegalArgumentException("User token is not authorized");
 		}		
 	}

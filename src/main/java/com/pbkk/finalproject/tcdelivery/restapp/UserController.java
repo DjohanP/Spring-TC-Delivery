@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +64,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
+	@AdminTokenRequired
 	@RequestMapping("")
 	public List<User> getAllUsers() {
 		return userDAO.findAll();
@@ -178,5 +180,54 @@ public class UserController {
 		return Util.getSuccessResult();
 	}
 	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/{id}")
+	public User getUser(@PathVariable("id") Integer id) {
+		User get=userDAO.findById(id);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/customer/")
+	public List<User> getCustomer() {
+		List<User> get=userDAO.findCustomer(null);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/customer/{id}")
+	public List<User> getCustomerById(@PathVariable("id") String idS) {
+		Integer id=null;
+		if(!idS.equals(""))
+		{
+			id=Integer.valueOf(idS);
+		}
+		List<User> get=userDAO.findCustomer(id);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/restaurant/")
+	public List<User> getRestaurant() {
+		List<User> get=userDAO.findRestaurant(null);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/restaurant/{id}")
+	public List<User> getRestaurantById(@PathVariable("id") String idS) {
+		Integer id=null;
+		if(!idS.equals(""))
+		{
+			id=Integer.valueOf(idS);
+		}
+		List<User> get=userDAO.findRestaurant(id);
+		return get;
+	}
 
 }

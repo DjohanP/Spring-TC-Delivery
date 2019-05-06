@@ -52,7 +52,7 @@ public class AdminTokenRequiredAspect {
 		
 		String subject = claims.getSubject();
 		
-		if(subject.split("=").length != 2 || new Integer(subject.split("=")[1]) != 3||new Integer(subject.split("=")[0])!=tokenDB.getIdUser()){
+		if(subject.split("=").length != 2 || new Integer(subject.split("=")[1]) != 3){
 			throw new IllegalArgumentException("User token is not authorized");
 		}		
 	}

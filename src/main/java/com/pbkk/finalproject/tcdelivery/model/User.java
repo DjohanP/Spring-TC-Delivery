@@ -20,6 +20,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name="users")
 @EntityListeners(AuditingEntityListener.class)
 public class User {
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(Integer id, String name, String userName, Integer role, Integer status, String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.userName = userName;
+		this.role = role;
+		this.status = status;
+		this.email = email;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
