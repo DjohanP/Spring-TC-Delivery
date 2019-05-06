@@ -1,6 +1,7 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -142,6 +143,18 @@ public class UserController {
 		usr.setCreatedAt(new Date());
 		userDAO.save(usr);
 		return Util.getSuccessResult();
+	}
+	
+	
+	@ResponseBody
+	@AdminTokenRequired
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public Map<String, Object> deleteUser(
+			@PathVariable("id") Integer userid) {
+		Map<String, Object> map = new LinkedHashMap<>();   
+		userDAO.deleteUser(userid);    
+	    map.put("result", "deleted");
+	    return map;
 	}
 	
 	@ResponseBody

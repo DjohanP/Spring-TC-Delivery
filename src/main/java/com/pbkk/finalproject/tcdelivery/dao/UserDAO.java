@@ -121,4 +121,14 @@ public class UserDAO {
 		}
 	}
 	
+	public void deleteUser(Integer userId)
+	{
+		User usr=userRepository.findByIduser(userId);
+		if(usr!=null)
+		{
+			usr.setStatus(0);
+			userRepository.save(usr);
+		}
+	}
+	
 }
