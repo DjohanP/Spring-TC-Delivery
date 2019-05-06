@@ -96,7 +96,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@AdminTokenRequired
+	//@AdminTokenRequired
 	@RequestMapping(value = "/register/restaurant", method = RequestMethod.POST)
 	public Map<String, Object> registerRestaurant(
 				@RequestParam(value = "username") String username,
