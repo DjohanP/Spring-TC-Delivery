@@ -147,4 +147,15 @@ public class UserDAO {
 		}
 	}
 	
+	public void updateUser(Integer userId,String name, String userName, String email)
+	{
+		User usr=userRepository.findByIduser(userId);
+		if(usr!=null)
+		{
+			usr.setName(name);
+			usr.setUserName(userName);
+			usr.setEmail(email);
+			userRepository.save(usr);
+		}
+	}
 }

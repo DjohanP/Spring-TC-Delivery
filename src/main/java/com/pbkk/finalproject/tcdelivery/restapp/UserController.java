@@ -295,5 +295,49 @@ public class UserController {
 		return Util.getSuccessResult("Successfully updated user password");
 		
 	}
-
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping(value = "/checkusername/", method = RequestMethod.POST)
+	public Map<String, Object> checkUsername(
+				@RequestParam(value = "username") String username
+			) 
+	{
+		if(userDAO.checkUsername(username)==false)
+		{
+			return Util.getErrorResult("Username not available");
+		}
+		return Util.getSuccessResult("Username available");
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping(value = "/checkemail/", method = RequestMethod.POST)
+	public Map<String, Object> checkEmail(
+				@RequestParam(value = "email") String email
+			) 
+	{
+		if(userDAO.checkEmail(email)==false)
+		{
+			return Util.getErrorResult("Username not available");
+		}
+		return Util.getSuccessResult("Username available");
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping(value = "/changebiodata/", method = RequestMethod.POST)
+	public Map<String, Object> changeBiodata(
+				@RequestParam(value = "username") String userName,
+				@RequestParam(value = "name") String name,
+				@RequestParam(value = "email") String email
+			) 
+	{
+		String userIdString=securityService.getUserId();
+		Integer userId=Integer.valueOf(userIdString);
+		
+		userDAO.updateUser(userId, name, userName, email);
+		
+		return Util.getSuccessResult("Username available");
+	}
 }
