@@ -96,7 +96,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	//@AdminTokenRequired
+	@AdminTokenRequired
 	@RequestMapping(value = "/register/restaurant", method = RequestMethod.POST)
 	public Map<String, Object> registerRestaurant(
 				@RequestParam(value = "username") String username,
@@ -121,7 +121,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	//@AdminTokenRequired
+	@AdminTokenRequired
 	@RequestMapping(value = "/register/admin", method = RequestMethod.POST)
 	public Map<String, Object> registerAdmin(
 				@RequestParam(value = "username") String username,
@@ -151,6 +151,14 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public Map<String, Object> deleteUser(
 			@PathVariable("id") Integer userid) {
+		
+		//Find user id
+		User user=userDAO.findById(userid);
+		if(user==null)
+		{
+			return Util.getErrorResult("Username not Found");
+		}
+				
 		Map<String, Object> map = new LinkedHashMap<>();   
 		userDAO.deleteUser(userid);    
 	    map.put("result", "deleted");
