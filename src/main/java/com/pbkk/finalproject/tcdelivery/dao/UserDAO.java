@@ -104,7 +104,7 @@ public class UserDAO {
 	public boolean checkUsername(String userName)
 	{
 		User checkUser=userRepository.findByUsername(userName);
-		if(checkUser==null)
+		if(checkUser == null)
 		{
 			return true;
 		}
@@ -147,14 +147,21 @@ public class UserDAO {
 		}
 	}
 	
-	public void updateUser(Integer userId,String name, String userName, String email)
+	public void updateUser(Integer userId, String name, String userName, String email)
 	{
 		User usr=userRepository.findByIduser(userId);
 		if(usr!=null)
 		{
-			usr.setName(name);
-			usr.setUserName(userName);
-			usr.setEmail(email);
+			if(name != null && name != "") {
+				usr.setName(name);
+			}
+			if(userName != null && userName != "") {
+				usr.setUserName(userName);
+			}
+			if(email != null && email != "") {
+				usr.setEmail(email);
+			}
+			
 			userRepository.save(usr);
 		}
 	}

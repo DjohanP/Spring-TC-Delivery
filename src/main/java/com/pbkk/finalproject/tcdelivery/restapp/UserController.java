@@ -121,7 +121,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@AdminTokenRequired
+	//@AdminTokenRequired
 	@RequestMapping(value = "/register/admin", method = RequestMethod.POST)
 	public Map<String, Object> registerAdmin(
 				@RequestParam(value = "username") String username,
@@ -203,7 +203,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping("/customer/")
+	@RequestMapping("/customer")
 	public List<User> getCustomer() {
 		List<User> get=userDAO.findCustomer(null);
 		return get;
@@ -224,7 +224,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping("/restaurant/")
+	@RequestMapping("/restaurant")
 	public List<User> getRestaurant() {
 		List<User> get=userDAO.findRestaurant(null);
 		return get;
@@ -245,7 +245,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/changepassword/", method = RequestMethod.POST)
+	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
 	public Map<String, Object> changePassword(
 				@RequestParam(value = "oldpassword") String oldPassword,
 				@RequestParam(value = "newpassword") String newPassword,
@@ -273,7 +273,6 @@ public class UserController {
 		
 		
 		return Util.getSuccessResult("Successfully updated user password");
-		
 	}
 	
 	@ResponseBody
@@ -298,35 +297,35 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/checkusername/", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkusername", method = RequestMethod.POST)
 	public Map<String, Object> checkUsername(
 				@RequestParam(value = "username") String username
 			) 
 	{
 		if(userDAO.checkUsername(username)==false)
 		{
-			return Util.getErrorResult("Username not available");
+			return Util.getErrorResult("Username available");
 		}
-		return Util.getSuccessResult("Username available");
+		return Util.getSuccessResult("Username not available");
 	}
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/checkemail/", method = RequestMethod.POST)
+	@RequestMapping(value = "/checkemail", method = RequestMethod.POST)
 	public Map<String, Object> checkEmail(
 				@RequestParam(value = "email") String email
 			) 
 	{
 		if(userDAO.checkEmail(email)==false)
 		{
-			return Util.getErrorResult("Username not available");
+			return Util.getErrorResult("Username available");
 		}
-		return Util.getSuccessResult("Username available");
+		return Util.getSuccessResult("Username not available");
 	}
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/changebiodata/", method = RequestMethod.POST)
+	@RequestMapping(value = "/changebiodata", method = RequestMethod.POST)
 	public Map<String, Object> changeBiodata(
 				@RequestParam(value = "username") String userName,
 				@RequestParam(value = "name") String name,
@@ -338,6 +337,28 @@ public class UserController {
 		
 		userDAO.updateUser(userId, name, userName, email);
 		
-		return Util.getSuccessResult("Username available");
+		return Util.getSuccessResult("Biodata was updated");
+	}
+	
+	@ResponseBody
+	@AdminTokenRequired
+	@RequestMapping(value = "/changebiodata/{id}", method = RequestMethod.POST)
+	public Map<String, Object> changeBiodataAdmin(
+				@PathVariable("id") Integer id,
+				@RequestParam(value = "username") String userName,
+				@RequestParam(value = "name") String name,
+				@RequestParam(value = "email") String email
+			)
+	{
+		//Find user id
+		User user=userDAO.findById(id);
+		if(user==null)
+		{
+			return Util.getErrorResult("Username not Found");
+		}
+		
+		userDAO.updateUser(id, name, userName, email);
+		
+		return Util.getSuccessResult("Biodata was updated");
 	}
 }
