@@ -31,4 +31,24 @@ public class Util {
 		map.put("value", obj);
 		return (T) map;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T getErrorResult(){
+		Map<String, Object> map = new LinkedHashMap<>();
+		
+		map.put("result_code", 0);
+		map.put("result", "error");
+		return (T) map;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T getErrorResult(Object obj){
+		Map<String, Object> map = new LinkedHashMap<>();
+		
+		map.put("result_code", 0);
+		map.put("result", "error");
+		map.put("value", obj);
+		
+		return (T) map;
+	}
 }

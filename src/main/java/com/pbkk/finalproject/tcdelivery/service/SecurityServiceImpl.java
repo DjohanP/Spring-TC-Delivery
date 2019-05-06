@@ -4,10 +4,13 @@ import java.security.Key;
 import java.util.Date;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.model.Token;
@@ -62,5 +65,37 @@ public class SecurityServiceImpl implements SecurityService{
 		Claims claims = Jwts.parser() .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
 				.parseClaimsJws(token).getBody();
 		return claims.getSubject();
+	}
+	
+	@Override
+	public String getUserId()
+	{
+		ServletRequestAttributes reqAttributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		HttpServletRequest request = reqAttributes.getRequest();
+
+		// checks for token in request header
+		String tokenInHeader = request.getHeader("token");
+		
+		Claims claims = Jwts.parser() .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+				.parseClaimsJws(tokenInHeader).getBody();
+		String subject=claims.getSubject();
+		
+		return subject.split("=")[0];
+	}
+	
+	@Override
+	public String getRole()
+	{
+		ServletRequestAttributes reqAttributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+		HttpServletRequest request = reqAttributes.getRequest();
+
+		// checks for token in request header
+		String tokenInHeader = request.getHeader("token");
+		
+		Claims claims = Jwts.parser() .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+				.parseClaimsJws(tokenInHeader).getBody();
+		String subject=claims.getSubject();
+		
+		return subject.split("=")[1];
 	}
 }

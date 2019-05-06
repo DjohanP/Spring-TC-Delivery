@@ -95,6 +95,12 @@ public class UserDAO {
 		return user;
 	}
 	
+	public User login(Integer userId,String password)
+	{
+		User user=userRepository.findByUserIdandPassword(userId, DigestUtils.sha256Hex(password));
+		return user;
+	}
+	
 	public boolean checkUsername(String userName)
 	{
 		User checkUser=userRepository.findByUsername(userName);
@@ -127,6 +133,16 @@ public class UserDAO {
 		if(usr!=null)
 		{
 			usr.setStatus(0);
+			userRepository.save(usr);
+		}
+	}
+	
+	public void updatePasswordUser(Integer userId,String password)
+	{
+		User usr=userRepository.findByIduser(userId);
+		if(usr!=null)
+		{
+			usr.setPassword(password);
 			userRepository.save(usr);
 		}
 	}

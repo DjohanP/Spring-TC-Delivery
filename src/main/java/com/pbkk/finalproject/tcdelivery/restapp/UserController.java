@@ -242,5 +242,58 @@ public class UserController {
 		List<User> get=userDAO.findRestaurant(id);
 		return get;
 	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping(value = "/changepassword/", method = RequestMethod.POST)
+	public Map<String, Object> changePassword(
+				@RequestParam(value = "oldpassword") String oldPassword,
+				@RequestParam(value = "newpassword") String newPassword,
+				@RequestParam(value = "confirmpassword") String confirmPassword
+			) 
+	{
+		String userIdString=securityService.getUserId();
+		Integer userId=Integer.valueOf(userIdString);
+		
+		User user=userDAO.login(userId, oldPassword);
+		if(user==null)
+		{
+			return Util.getErrorResult("Username or Password is Not Match");
+		}
+		if(oldPassword.equals("")||newPassword.equals("")||confirmPassword.equals(""))
+		{
+			return Util.getErrorResult("All fields must be filled in");
+		}
+		if(!newPassword.equals(confirmPassword))
+		{
+			return Util.getErrorResult("New password not equal with confirm password");
+		}
+		
+		userDAO.updatePasswordUser(userId,newPassword);
+		
+		
+		return Util.getSuccessResult("Successfully updated user password");
+		
+	}
+	
+	@ResponseBody
+	@AdminTokenRequired
+	@RequestMapping(value = "/changepassword/{id}", method = RequestMethod.POST)
+	public Map<String, Object> changePasswordAdmin(
+				@PathVariable("id") Integer id,
+				@RequestParam(value = "newpassword") String newPassword
+			) 
+	{
+		User user=userDAO.findById(id);//find by id
+		if(user==null)
+		{
+			return Util.getErrorResult("Username not Found");
+		}
+		
+		userDAO.updatePasswordUser(id,newPassword);
+		
+		return Util.getSuccessResult("Successfully updated user password");
+		
+	}
 
 }
