@@ -253,7 +253,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/changepassword", method = RequestMethod.PUT)
 	public Map<String, Object> changePassword(
 				@RequestParam(value = "oldpassword") String oldPassword,
 				@RequestParam(value = "newpassword") String newPassword,
@@ -285,7 +285,7 @@ public class UserController {
 	
 	@ResponseBody
 	@AdminTokenRequired
-	@RequestMapping(value = "/changepassword/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/changepassword/{id}", method = RequestMethod.PUT)
 	public Map<String, Object> changePasswordAdmin(
 				@PathVariable("id") Integer id,
 				@RequestParam(value = "newpassword") String newPassword
@@ -333,7 +333,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/changebiodata", method = RequestMethod.POST)
+	@RequestMapping(value = "/changebiodata", method = RequestMethod.PUT)
 	public Map<String, Object> changeBiodata(
 				@RequestParam(value = "username") String userName,
 				@RequestParam(value = "name") String name,
@@ -350,7 +350,7 @@ public class UserController {
 	
 	@ResponseBody
 	@AdminTokenRequired
-	@RequestMapping(value = "/changebiodata/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/changebiodata/{id}", method = RequestMethod.PUT)
 	public Map<String, Object> changeBiodataAdmin(
 				@PathVariable("id") Integer id,
 				@RequestParam(value = "username") String userName,
