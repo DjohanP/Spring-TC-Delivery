@@ -77,7 +77,8 @@ public class UserController {
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
-				@RequestParam(value = "password") String password
+				@RequestParam(value = "password") String password,
+				@RequestParam(value = "phone_number") String phoneNumber
 			) 
 	{
 		checkAvailable(username,email);
@@ -88,6 +89,7 @@ public class UserController {
 		usr.setUserName(username);
 		usr.setPassword(password);
 		usr.setEmail(email);
+		usr.setPhoneNumber(phoneNumber);
 		usr.setStatus(1);
 		usr.setRole(1);
 		usr.setCreatedAt(new Date());
@@ -102,7 +104,8 @@ public class UserController {
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
-				@RequestParam(value = "password") String password
+				@RequestParam(value = "password") String password,
+				@RequestParam(value = "phone_number") String phoneNumber
 			) 
 	{
 		checkAvailable(username,email);
@@ -113,6 +116,7 @@ public class UserController {
 		usr.setUserName(username);
 		usr.setPassword(password);
 		usr.setEmail(email);
+		usr.setPhoneNumber(phoneNumber);
 		usr.setStatus(1);
 		usr.setRole(2);
 		usr.setCreatedAt(new Date());
@@ -127,7 +131,8 @@ public class UserController {
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
-				@RequestParam(value = "password") String password
+				@RequestParam(value = "password") String password,
+				@RequestParam(value = "phone_number") String phoneNumber
 			) 
 	{
 		checkAvailable(username,email);
@@ -138,6 +143,7 @@ public class UserController {
 		usr.setUserName(username);
 		usr.setPassword(password);
 		usr.setEmail(email);
+		usr.setPhoneNumber(phoneNumber);
 		usr.setStatus(1);
 		usr.setRole(3);
 		usr.setCreatedAt(new Date());
@@ -337,13 +343,14 @@ public class UserController {
 	public Map<String, Object> changeBiodata(
 				@RequestParam(value = "username") String userName,
 				@RequestParam(value = "name") String name,
-				@RequestParam(value = "email") String email
+				@RequestParam(value = "email") String email,
+				@RequestParam(value = "phone_number") String phoneNumber
 			) 
 	{
 		String userIdString=securityService.getUserId();
 		Integer userId=Integer.valueOf(userIdString);
 		
-		userDAO.updateUser(userId, name, userName, email);
+		userDAO.updateUser(userId, name, userName, email, phoneNumber);
 		
 		return Util.getSuccessResult("Biodata was updated");
 	}
@@ -355,7 +362,8 @@ public class UserController {
 				@PathVariable("id") Integer id,
 				@RequestParam(value = "username") String userName,
 				@RequestParam(value = "name") String name,
-				@RequestParam(value = "email") String email
+				@RequestParam(value = "email") String email,
+				@RequestParam(value = "phone_number") String phoneNumber
 			)
 	{
 		//Find user id
@@ -365,7 +373,7 @@ public class UserController {
 			return Util.getErrorResult("Username not Found");
 		}
 		
-		userDAO.updateUser(id, name, userName, email);
+		userDAO.updateUser(id, name, userName, email, phoneNumber);
 		
 		return Util.getSuccessResult("Biodata was updated");
 	}

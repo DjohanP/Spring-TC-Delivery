@@ -30,7 +30,7 @@ public class UserDAO {
 		User usr=userRepository.findByIduser(id);
 		if(usr!=null)
 		{
-			return new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail());
+			return new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber());
 		}
 		return null;
 	}
@@ -43,7 +43,7 @@ public class UserDAO {
 			User usr=userRepository.findByIduser(id);
 			if(usr!=null&&usr.getRole()==1)
 			{
-				customers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail()));
+				customers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
 		}
 		else
@@ -53,7 +53,7 @@ public class UserDAO {
 			{
 				for(User usr:getCustomers)
 				{
-					customers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail()));
+					customers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 				}
 			}
 		}
@@ -68,7 +68,7 @@ public class UserDAO {
 			User usr=userRepository.findByIduser(id);
 			if(usr!=null&&usr.getRole()==2)
 			{
-				restaurants.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail()));
+				restaurants.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
 		}
 		else
@@ -78,7 +78,7 @@ public class UserDAO {
 			{
 				for(User usr:getCustomers)
 				{
-					restaurants.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail()));
+					restaurants.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 				}
 			}
 		}
@@ -147,7 +147,7 @@ public class UserDAO {
 		}
 	}
 	
-	public void updateUser(Integer userId, String name, String userName, String email)
+	public void updateUser(Integer userId, String name, String userName, String email, String phoneNumber)
 	{
 		User usr=userRepository.findByIduser(userId);
 		if(usr!=null)
@@ -160,6 +160,9 @@ public class UserDAO {
 			}
 			if(email != null && email != "") {
 				usr.setEmail(email);
+			}
+			if(phoneNumber != null && phoneNumber != "") {
+				usr.setEmail(phoneNumber);
 			}
 			
 			userRepository.save(usr);

@@ -26,7 +26,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Integer id, String name, String userName, Integer role, Integer status, String email) {
+	public User(Integer id, String name, String userName, Integer role, Integer status, String email, String phoneNumber) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -34,6 +34,7 @@ public class User {
 		this.role = role;
 		this.status = status;
 		this.email = email;
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Id
@@ -57,6 +58,9 @@ public class User {
 	
 	@Column(name="email")
 	private String email;
+	
+	@Column(name="phoneNumber")
+	private String phoneNumber;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
@@ -118,6 +122,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Date getCreatedAt() {
