@@ -166,7 +166,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/token", method = RequestMethod.POST)
 	public Map<String, Object> login(
 				@RequestParam(value = "email") String email,
 				@RequestParam(value = "password") String password
@@ -180,7 +180,7 @@ public class UserController {
 	
 	@ResponseBody
 	@UserTokenRequired
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/revoke", method = RequestMethod.POST)
 	public Map<String, Object> logout(
 			@RequestParam(value = "email") String email,
 			@RequestParam(value = "password") String password
