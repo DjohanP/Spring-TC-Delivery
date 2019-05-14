@@ -60,6 +60,31 @@ public class UserDAO {
 		return customers;
 	}
 	
+	public List<User> findDriver(Integer id)
+	{
+		List <User> drivers=new ArrayList<User>(); 
+		if(id!=null)
+		{
+			User usr=userRepository.findByIduser(id);
+			if(usr!=null&&usr.getRole()==1)
+			{
+				drivers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
+			}
+		}
+		else
+		{
+			List<User> getDrivers=userRepository.findDriver();
+			if(getDrivers!=null)
+			{
+				for(User usr:getDrivers)
+				{
+					drivers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
+				}
+			}
+		}
+		return drivers;
+	}
+	
 	public List<User> findRestaurant(Integer id)
 	{
 		List <User> restaurants=new ArrayList<User>(); 

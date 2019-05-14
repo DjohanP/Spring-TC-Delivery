@@ -98,6 +98,32 @@ public class UserController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/register/driver", method = RequestMethod.POST)
+	public Map<String, Object> registerDriver(
+				@RequestParam(value = "username") String username,
+				@RequestParam(value = "name") String name,
+				@RequestParam(value = "email") String email,
+				@RequestParam(value = "password") String password,
+				@RequestParam(value = "phone_number") String phoneNumber
+			) 
+	{
+		checkAvailable(username,email);
+		validate(email);
+		
+		User usr=new User();
+		usr.setName(name);
+		usr.setUserName(username);
+		usr.setPassword(password);
+		usr.setEmail(email);
+		usr.setPhoneNumber(phoneNumber);
+		usr.setStatus(1);
+		usr.setRole(4);
+		usr.setCreatedAt(new Date());
+		userDAO.save(usr);
+		return Util.getSuccessResult();
+	}
+	
+	@ResponseBody
 	@AdminTokenRequired
 	@RequestMapping(value = "/register/restaurant", method = RequestMethod.POST)
 	public Map<String, Object> registerRestaurant(
@@ -233,6 +259,27 @@ public class UserController {
 			id=Integer.valueOf(idS);
 		}
 		List<User> get=userDAO.findCustomer(id);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/driver")
+	public List<User> getDriver() {
+		List<User> get=userDAO.findDriver(null);
+		return get;
+	}
+	
+	@ResponseBody
+	@UserTokenRequired
+	@RequestMapping("/driver/{id}")
+	public List<User> getDriverById(@PathVariable("id") String idS) {
+		Integer id=null;
+		if(!idS.equals(""))
+		{
+			id=Integer.valueOf(idS);
+		}
+		List<User> get=userDAO.findDriver(id);
 		return get;
 	}
 	

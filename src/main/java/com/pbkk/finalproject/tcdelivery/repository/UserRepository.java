@@ -31,6 +31,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query("select u from User u where u.role = 1 and u.status = 1")
 	List<User> findCustomer();
 	
+	@Query("select u from User u where u.role = 4 and u.status = 1")
+	List<User> findDriver();
+	
 	@Query("select u from User u where u.role = 2 and u.status = 1")
 	List<User> findRestaurant();
 }
