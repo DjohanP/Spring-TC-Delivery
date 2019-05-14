@@ -39,4 +39,26 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public String getRoleName(int role) {
+		if(role==2)
+		{
+			return "Restaurant";
+		}
+		else if(role==3)
+		{
+			return "Admin";
+		}
+		else if(role==4)
+		{
+			return "Driver";
+		}
+		else
+		{
+			return "Customer";
+		}
+	}
+	
+	
+
 }

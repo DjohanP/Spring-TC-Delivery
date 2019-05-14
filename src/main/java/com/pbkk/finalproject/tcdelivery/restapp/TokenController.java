@@ -45,7 +45,7 @@ public class TokenController {
 	{
 		User user=userDAO.login(email, password);
 		String subject = user.getId()+"="+user.getRole();
-		String token = securityService.createToken(subject, (60 * 1000 * 60),user.getId()); // 60 minutes expiry time
+		String token = securityService.createToken(subject,user.getRole(),user.getName(),user.getUserName(),user.getEmail(), user.getId(),(60 * 1000 * 60)); // 60 minutes expiry time
 		return Util.getSuccessResult(token);
 	}
 	

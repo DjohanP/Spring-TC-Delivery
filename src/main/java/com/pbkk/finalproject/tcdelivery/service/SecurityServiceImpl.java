@@ -22,16 +22,21 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class SecurityServiceImpl implements SecurityService{
-	public static final String secretKey= "4C8okt4LxyKWYLM78sKdXrzbBjDCFyfX";
+	public static final String secretKey= "4C8okt4LxyKWYLM78sKdXrzbBjDCFyfXUm9sZSI6IkN1c3RvbWVyIiwiVXNlcm5hbWUiOiJ3";
 	
 	@Autowired
 	TokenDAO tokenDAO;
 	
+	@Autowired
+	UserService userService;
+	
 	@Override
-	public String createToken(String subject, long ttlMillis,Integer userId) {
+	public String createToken(String subject,int roleUser,String name,String username, String email,Integer userId,long ttlMillis) {
 		if (ttlMillis <= 0) {
 			throw new RuntimeException("Expiry time must be greater than Zero :["+ttlMillis+"] ");
 		}
+		
+		String role=userService.getRoleName(roleUser);
 		
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -42,7 +47,12 @@ public class SecurityServiceImpl implements SecurityService{
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
 		JwtBuilder builder = Jwts.builder()
-				.setSubject(subject)				
+				.setSubject(subject)//id
+				.claim("Name", name)
+				.claim("Role",role)
+				.claim("Username",username)
+				.claim("Userid",userId)
+				.claim("Email", email)
 				.signWith(signatureAlgorithm, signingKey);
 		
 		builder.setExpiration(new Date(nowMillis + ttlMillis));

@@ -1,9 +1,10 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,6 @@ import com.pbkk.finalproject.tcdelivery.dao.UserDAO;
 import com.pbkk.finalproject.tcdelivery.model.User;
 import com.pbkk.finalproject.tcdelivery.service.SecurityService;
 import com.pbkk.finalproject.tcdelivery.service.UserService;
-import com.pbkk.finalproject.tcdelivery.util.Util;
 
 @RestController
 @RequestMapping("/admin")
@@ -38,7 +38,7 @@ public class AdminController {
 	@ResponseBody
 	@AdminTokenRequired
 	@RequestMapping(value = "/register/admin", method = RequestMethod.POST)
-	public Map<String, Object> registerAdmin(
+	public ResponseEntity<User> registerAdmin(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
@@ -59,7 +59,8 @@ public class AdminController {
 		usr.setRole(3);
 		usr.setCreatedAt(new Date());
 		userDAO.save(usr);
-		return Util.getSuccessResult();
+
+		return new ResponseEntity<User>(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()), HttpStatus.CREATED);
 	}
 
 }
