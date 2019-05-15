@@ -1,5 +1,6 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.pbkk.finalproject.tcdelivery.aop.AdminTokenRequired;
 import com.pbkk.finalproject.tcdelivery.aop.UserTokenRequired;
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.dao.UserDAO;
+import com.pbkk.finalproject.tcdelivery.model.ReturnUser;
 import com.pbkk.finalproject.tcdelivery.model.User;
 import com.pbkk.finalproject.tcdelivery.service.SecurityService;
 import com.pbkk.finalproject.tcdelivery.service.UserService;
@@ -41,7 +43,7 @@ public class RestaurantController {
 	@ResponseBody
 	@AdminTokenRequired
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<User> registerRestaurant(
+	public ResponseEntity<ReturnUser> registerRestaurant(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
@@ -62,27 +64,40 @@ public class RestaurantController {
 		usr.setRole(2);
 		usr.setCreatedAt(new Date());
 		userDAO.save(usr);
-		return new ResponseEntity<User>(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()), HttpStatus.CREATED);
+		
+		return new ResponseEntity<ReturnUser>(new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt()), HttpStatus.CREATED);
 	}
 	
 	@ResponseBody
 	@UserTokenRequired
 	@RequestMapping("/")
-	public List<User> getRestaurant() {
+	public List<ReturnUser> getRestaurant() {
 		List<User> get=userDAO.findRestaurant(null);
-		return get;
+
+		List<ReturnUser> returnUser = new ArrayList<ReturnUser>();
+		for(User usr : get){
+			returnUser.add(new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt()));
+		}
+		
+		return returnUser;
 	}
 	
 	@ResponseBody
 	@UserTokenRequired
 	@RequestMapping("/{id}")
-	public List<User> getRestaurantById(@PathVariable("id") String idS) {
+	public List<ReturnUser> getRestaurantById(@PathVariable("id") String idS) {
 		Integer id=null;
 		if(!idS.equals(""))
 		{
 			id=Integer.valueOf(idS);
 		}
 		List<User> get=userDAO.findRestaurant(id);
-		return get;
+
+		List<ReturnUser> returnUser = new ArrayList<ReturnUser>();
+		for(User usr : get){
+			returnUser.add(new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt()));
+		}
+		
+		return returnUser;
 	}
 }

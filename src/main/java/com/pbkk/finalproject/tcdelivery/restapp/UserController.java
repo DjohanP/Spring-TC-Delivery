@@ -1,5 +1,6 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import com.pbkk.finalproject.tcdelivery.aop.AdminTokenRequired;
 import com.pbkk.finalproject.tcdelivery.aop.UserTokenRequired;
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.dao.UserDAO;
+import com.pbkk.finalproject.tcdelivery.model.ReturnUser;
 import com.pbkk.finalproject.tcdelivery.model.User;
 import com.pbkk.finalproject.tcdelivery.service.SecurityService;
 import com.pbkk.finalproject.tcdelivery.service.UserService;
@@ -41,16 +43,26 @@ public class UserController {
 	@ResponseBody
 	@AdminTokenRequired
 	@RequestMapping("")
-	public List<User> getAllUsers() {
-		return userDAO.findAll();
+	public List<ReturnUser> getAllUsers() {
+		List<User> get = userDAO.findAll();
+		
+		List<ReturnUser> returnUser = new ArrayList<ReturnUser>();
+		for(User usr : get){
+			returnUser.add(new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt()));
+		}
+		
+		return returnUser;
 	}
 	
 	@ResponseBody
 	@UserTokenRequired
 	@RequestMapping("/{id}")
-	public User getUser(@PathVariable("id") Integer id) {
-		User get=userDAO.findById(id);
-		return get;
+	public ReturnUser getUser(@PathVariable("id") Integer id) {
+		User usr = userDAO.findById(id);
+		
+		ReturnUser returnUser = new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt());
+		
+		return returnUser;
 	}
 	
 	@ResponseBody
@@ -132,9 +144,9 @@ public class UserController {
 	{
 		if(userDAO.checkUsername(username)==false)
 		{
-			return Util.getErrorResult("Username available");
+			return Util.getSuccessResult("Username available");
 		}
-		return Util.getSuccessResult("Username not available");
+		return Util.getErrorResult("Username not available");
 	}
 	
 	@ResponseBody
@@ -146,9 +158,9 @@ public class UserController {
 	{
 		if(userDAO.checkEmail(email)==false)
 		{
-			return Util.getErrorResult("Username available");
+			return Util.getSuccessResult("Email available");
 		}
-		return Util.getSuccessResult("Username not available");
+		return Util.getErrorResult("Email not available");
 	}
 	
 	@ResponseBody
@@ -183,7 +195,7 @@ public class UserController {
 		User user=userDAO.findById(id);
 		if(user==null)
 		{
-			return Util.getErrorResult("Username not Found");
+			return Util.getErrorResult("User id not found");
 		}
 		
 		userDAO.updateUser(id, name, userName, email, phoneNumber);
