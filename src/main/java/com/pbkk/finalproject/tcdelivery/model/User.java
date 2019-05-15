@@ -35,6 +35,7 @@ public class User {
 		this.status = status;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.createdAt = new Date();
 	}
 
 	@Id

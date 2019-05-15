@@ -133,9 +133,9 @@ public class UserController {
 	{
 		if(userDAO.checkUsername(username)==false)
 		{
-			return Util.getErrorResult("Username available");
+			return Util.getSuccessResult("Username available");
 		}
-		return Util.getSuccessResult("Username not available");
+		return Util.getErrorResult("Username not available");
 	}
 	
 	@ResponseBody
@@ -147,9 +147,9 @@ public class UserController {
 	{
 		if(userDAO.checkEmail(email)==false)
 		{
-			return Util.getErrorResult("Username available");
+			return Util.getSuccessResult("Email available");
 		}
-		return Util.getSuccessResult("Username not available");
+		return Util.getErrorResult("Email not available");
 	}
 	
 	@ResponseBody
@@ -185,7 +185,7 @@ public class UserController {
 		User user=userDAO.findById(id);
 		if(user==null)
 		{
-			return Util.getErrorResult("Username not Found");
+			return Util.getErrorResult("User id not found");
 		}
 		
 		userDAO.updateUser(id, name, userName, email, phoneNumber);

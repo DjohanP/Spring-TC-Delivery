@@ -40,7 +40,7 @@ public class RestaurantController {
 	
 	@ResponseBody
 	@AdminTokenRequired
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<User> registerRestaurant(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
