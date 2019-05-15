@@ -1,8 +1,11 @@
 package com.pbkk.finalproject.tcdelivery.service;
 
+import java.io.IOException;
+
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 public interface SecurityService {
-	String createToken(String subject,int roleUser,String name,String username, String email,Integer userId,long ttlMillis);
-	String getSubject(String token);
-	String getUserId();
-	String getRole();
+	String createToken(String subject,int roleUser,String name,String username, String email,String phone,Integer userId,long ttlMillis) throws IOException;
+	DecodedJWT verifyToken(String token);
+	int getUserId();
 }

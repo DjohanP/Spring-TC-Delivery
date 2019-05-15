@@ -1,7 +1,6 @@
 package com.pbkk.finalproject.tcdelivery.aop;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.DatatypeConverter;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -11,18 +10,19 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.model.Token;
-import com.pbkk.finalproject.tcdelivery.service.SecurityServiceImpl;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import com.pbkk.finalproject.tcdelivery.service.SecurityService;
 
 @Aspect
 @Component
 public class DriverTokenRequiredAspect {
 	@Autowired
 	TokenDAO tokenDAO;
+	
+	@Autowired
+	SecurityService securityService;
 	
 	@Before("@annotation(driverTokenRequired)")
 	public void tokenRequiredWithAnnotation(DriverTokenRequired driverTokenRequired) throws Throwable{
@@ -42,17 +42,13 @@ public class DriverTokenRequiredAspect {
 			throw new IllegalArgumentException("User token is not authorized");
 		}
 		
-		Claims claims = Jwts.parser()         
-			       .setSigningKey(DatatypeConverter.parseBase64Binary(SecurityServiceImpl.secretKey))
-			       .parseClaimsJws(tokenInHeader).getBody();
+		DecodedJWT verifyToken=securityService.verifyToken(tokenInHeader);
 		
-		if(claims == null || claims.getSubject() == null){
+		if(verifyToken == null){
 			throw new IllegalArgumentException("Token Error : Claim is null");
 		}
 		
-		String subject = claims.getSubject();
-		
-		if(subject.split("=").length != 2 || new Integer(subject.split("=")[1]) != 4){
+		if(verifyToken.getClaim("username") == null || !verifyToken.getClaim("role").asString().equals("Driver")){
 			throw new IllegalArgumentException("User token is not authorized");
 		}		
 	}

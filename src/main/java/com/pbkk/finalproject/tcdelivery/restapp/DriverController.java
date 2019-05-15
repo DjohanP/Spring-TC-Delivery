@@ -38,7 +38,7 @@ public class DriverController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<User> registerDriver(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,

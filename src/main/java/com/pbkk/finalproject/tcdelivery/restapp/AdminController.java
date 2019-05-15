@@ -37,7 +37,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@AdminTokenRequired
-	@RequestMapping(value = "/register/admin", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<User> registerAdmin(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,

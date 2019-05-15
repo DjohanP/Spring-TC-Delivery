@@ -81,8 +81,7 @@ public class UserController {
 				@RequestParam(value = "confirmpassword") String confirmPassword
 			) 
 	{
-		String userIdString=securityService.getUserId();
-		Integer userId=Integer.valueOf(userIdString);
+		Integer userId=securityService.getUserId();
 		
 		User user=userDAO.login(userId, oldPassword);
 		if(user==null)
@@ -162,8 +161,7 @@ public class UserController {
 				@RequestParam(value = "phone_number") String phoneNumber
 			) 
 	{
-		String userIdString=securityService.getUserId();
-		Integer userId=Integer.valueOf(userIdString);
+		Integer userId=securityService.getUserId();
 		
 		userDAO.updateUser(userId, name, userName, email, phoneNumber);
 		

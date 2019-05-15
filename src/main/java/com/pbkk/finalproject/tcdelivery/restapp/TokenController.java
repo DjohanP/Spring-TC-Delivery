@@ -1,5 +1,6 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,11 +42,11 @@ public class TokenController {
 	public Map<String, Object> login(
 				@RequestParam(value = "email") String email,
 				@RequestParam(value = "password") String password
-			) 
+			) throws IOException 
 	{
 		User user=userDAO.login(email, password);
 		String subject = user.getId()+"="+user.getRole();
-		String token = securityService.createToken(subject,user.getRole(),user.getName(),user.getUserName(),user.getEmail(), user.getId(),(60 * 1000 * 60)); // 60 minutes expiry time
+		String token = securityService.createToken(subject,user.getRole(),user.getName(),user.getUserName(),user.getEmail(), user.getPhoneNumber(),user.getId(),(60 * 1000 * 60)); // 60 minutes expiry time
 		return Util.getSuccessResult(token);
 	}
 	
