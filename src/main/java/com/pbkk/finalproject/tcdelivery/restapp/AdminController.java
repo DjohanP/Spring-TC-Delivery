@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pbkk.finalproject.tcdelivery.aop.AdminTokenRequired;
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.dao.UserDAO;
+import com.pbkk.finalproject.tcdelivery.model.ReturnUser;
 import com.pbkk.finalproject.tcdelivery.model.User;
 import com.pbkk.finalproject.tcdelivery.service.SecurityService;
 import com.pbkk.finalproject.tcdelivery.service.UserService;
@@ -38,7 +39,7 @@ public class AdminController {
 	@ResponseBody
 	@AdminTokenRequired
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<User> registerAdmin(
+	public ResponseEntity<ReturnUser> registerAdmin(
 				@RequestParam(value = "username") String username,
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
@@ -59,8 +60,7 @@ public class AdminController {
 		usr.setRole(3);
 		usr.setCreatedAt(new Date());
 		userDAO.save(usr);
-
-		return new ResponseEntity<User>(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()), HttpStatus.CREATED);
+		
+		return new ResponseEntity<ReturnUser>(new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt()), HttpStatus.CREATED);
 	}
-
 }
