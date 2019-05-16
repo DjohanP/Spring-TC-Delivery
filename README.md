@@ -12,51 +12,52 @@
 
 ## End Point
 
-**USER**
-| Method | End Point | Parameter | Description |
-| :--------- | :------------- |:-------------| -----|
-|GET| /user | - | Get all active users. |
-|GET| /user/{id} | - | Get active users by id. |
-|POST| /token | email, password | Login and get token. |
-|POST| /revoke | email, password | Logout and delete token. |
-|POST| /username | username | Check registered user using username. |
-|POST| /email | email | Check registered user using email. |
-|PUT| /password | oldpassword, newpassword, confirmpassword | Change password by user. |
-|PUT| /biodata | username, name, email, phone_number | Change biodata by user. |
-
+**User**
 ---
+
+| Method | End Point | Parameter | Privilege | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|GET| /user | - | User |Get all active users. |
+|GET| /user/{id} | - | User | Get active users by id. |
+|POST| /token | email, password | - |Login and get token. |
+|POST| /revoke | email, password | - |Logout and delete token. |
+|POST| /username | username | User |Check registered user using username. |
+|POST| /email | email | User |Check registered user using email. |
+|PUT| /password | oldpassword, newpassword, confirmpassword | User |Change password by user. |
+|PUT| /biodata | username, name, email, phone_number | User |Change biodata by user. |
 
 **CUSTOMER**
-| Method | End Point | Parameter | Description |
-| :--------- | ------------- |:-------------| -----|
-|GET| /customer/ | - | Get all active customers. |
-|GET| /customer/{id} | - | Get active customers by id. |
-|POST| /customer | username, name, email, password, phone_number | Register new customer. |
-
 ---
+
+| Method | End Point | Parameter | Privilege | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|GET| /customer/ | - | User |Get all active customers. |
+|GET| /customer/{id} | - | User |Get active customers by id. |
+|POST| /customer | username, name, email, password, phone_number | - |Register new customer. |
 
 **RESTAURANT**
-| Method | End Point | Parameter | Description |
-| :--------- | ------------- |:-------------| -----|
-|GET| /restaurant/ | - | Get all active restaurants. |
-|GET| /restaurant/{id} | - | Get active restaurants by id. |
-|POST| /restaurant | username, name, email, password, phone_number | Register new restaurant. |
-
 ---
+
+| Method | End Point | Parameter | Privilege | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|GET| /restaurant/ | - | User | Get all active restaurants. |
+|GET| /restaurant/{id} | - | User | Get active restaurants by id. |
+|POST| /restaurant | username, name, email, password, phone_number | Admin |Register new restaurant. |
 
 **DRIVER**
-| Method | End Point | Parameter | Description |
-| :--------- | ------------- |:-------------| -----|
-|GET| /driver/ | - | Get all active drivers. |
-|GET| /driver/{id} | - | Get active drivers by id. |
-|POST| /driver | username, name, email, password, phone_number | Register new driver. |
-
 ---
 
+| Method | End Point | Parameter | Privilege | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|GET| /driver/ | - | User | Get all active drivers. |
+|GET| /driver/{id} | - | User | Get active drivers by id. |
+|POST| /driver | username, name, email, password, phone_number | Admin |Register new driver. |
+
 **ADMIN**
-| Method | End Point | Parameter | Description |
-| :--------- | ------------- |:-------------| -----|
-|POST| /admin | username, name, email, password, phone_number | Register new admin. |
-|PUT| /biodata/{id} | username, name, email, phone_number | Change biodata by admin. |
-|PUT| /password/{id} | newpassword | Change password by admin. |
-|DELETE| /user/{id} | - | Delete active user. |
+---
+| Method | End Point | Parameter | Privilege |Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|POST| /admin | username, name, email, password, phone_number | Admin | Register new admin. |
+|PUT| /biodata/{id} | username, name, email, phone_number | Admin |Change biodata by admin. |
+|PUT| /password/{id} | newpassword | Admin | Change password by admin. |
+|DELETE| /user/{id} | - | Admin | Delete active user. |
