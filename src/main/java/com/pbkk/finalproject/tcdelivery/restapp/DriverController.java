@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pbkk.finalproject.tcdelivery.aop.AdminTokenRequired;
 import com.pbkk.finalproject.tcdelivery.aop.UserTokenRequired;
 import com.pbkk.finalproject.tcdelivery.dao.TokenDAO;
 import com.pbkk.finalproject.tcdelivery.dao.UserDAO;
@@ -40,6 +41,7 @@ public class DriverController {
 	
 	
 	@ResponseBody
+	@AdminTokenRequired
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<ReturnUser> registerDriver(
 				@RequestParam(value = "username") String username,

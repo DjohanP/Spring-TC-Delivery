@@ -53,10 +53,7 @@ public class TokenController {
 	@ResponseBody
 	@UserTokenRequired
 	@RequestMapping(value = "/revoke", method = RequestMethod.POST)
-	public Map<String, Object> logout(
-			@RequestParam(value = "email") String email,
-			@RequestParam(value = "password") String password
-		) 
+	public Map<String, Object> logout() 
 	{
 		ServletRequestAttributes reqAttributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = reqAttributes.getRequest();

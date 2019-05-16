@@ -116,7 +116,7 @@ public class UserDAO {
 		User user=userRepository.findByEmailandPassword(email, DigestUtils.sha256Hex(password));
 		if(user==null)
 		{
-			throw new IllegalArgumentException("Username or Password is Not Match");
+			throw new IllegalArgumentException("Email or Password is Not Match");
 		}
 		return user;
 	}
