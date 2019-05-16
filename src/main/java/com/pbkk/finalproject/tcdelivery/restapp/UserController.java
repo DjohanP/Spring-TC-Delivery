@@ -61,9 +61,14 @@ public class UserController {
 	public ReturnUser getUser(@PathVariable("id") Integer id) {
 		User usr = userDAO.findById(id);
 		
-		ReturnUser returnUser = new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt());
-		
-		return returnUser;
+		if(usr != null) {
+			ReturnUser returnUser = new ReturnUser(usr.getId(), usr.getName(), usr.getUserName(), usr.getRole(), usr.getStatus(), usr.getEmail(), usr.getPhoneNumber(), usr.getCreatedAt());
+			return returnUser;
+		}
+		else {
+			ReturnUser returnUser = null;
+			return returnUser;
+		}
 	}
 	
 	@ResponseBody

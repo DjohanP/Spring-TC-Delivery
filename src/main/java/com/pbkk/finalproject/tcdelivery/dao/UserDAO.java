@@ -67,7 +67,7 @@ public class UserDAO {
 		if(id!=null)
 		{
 			User usr=userRepository.findByIduser(id);
-			if(usr!=null&&usr.getRole()==1)
+			if(usr!=null&&usr.getRole()==4)
 			{
 				drivers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
