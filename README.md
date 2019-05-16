@@ -12,7 +12,9 @@
 
 ## End Point
 
-**USER**
+### User
+---
+
 | Method | End Point | Parameter | Description |
 | ------------- | ------------- | ------------- | ------------- |
 |GET| /user | - | Get all active users. |
