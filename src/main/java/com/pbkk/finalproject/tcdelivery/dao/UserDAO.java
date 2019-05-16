@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.pbkk.finalproject.tcdelivery.model.User;
 import com.pbkk.finalproject.tcdelivery.repository.UserRepository;
@@ -177,17 +178,17 @@ public class UserDAO {
 		User usr=userRepository.findByIduser(userId);
 		if(usr!=null)
 		{
-			if(name != null && name != "") {
+			if(!StringUtils.isEmpty(name)) {
 				usr.setName(name);
 			}
-			if(userName != null && userName != "") {
+			if(!StringUtils.isEmpty(userName)) {
 				usr.setUserName(userName);
 			}
-			if(email != null && email != "") {
+			if(!StringUtils.isEmpty(email)) {
 				usr.setEmail(email);
 			}
-			if(phoneNumber != null && phoneNumber != "") {
-				usr.setEmail(phoneNumber);
+			if(!StringUtils.isEmpty(phoneNumber)) {
+				usr.setPhoneNumber(phoneNumber);
 			}
 			
 			userRepository.save(usr);
