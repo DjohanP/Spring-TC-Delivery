@@ -2,6 +2,7 @@ package com.pbkk.finalproject.tcdelivery.service;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.security.Security;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -19,9 +20,9 @@ public class RSAKeysLoader {
 		 Security.addProvider(new BouncyCastleProvider());
 	 }
 	 
-	 public static RSAPrivateKey createPrivateKeyPKCS1Format(File privateKeyFile) {
+	 public static RSAPrivateKey createPrivateKeyPKCS1Format(String privateKey) {
 		 try {
-			 PEMParser pemParser = new PEMParser(new FileReader(privateKeyFile));
+			 PEMParser pemParser=new PEMParser(new StringReader(privateKey));
 			 JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
 			 Object object = pemParser.readObject();
 			 KeyPair kp = converter.getKeyPair((PEMKeyPair) object);
@@ -31,9 +32,9 @@ public class RSAKeysLoader {
 		 }
 	 }
 	 
-	 public static RSAPublicKey createPublicKeyPKCS1Format(File privateKeyFile) {
+	 public static RSAPublicKey createPublicKeyPKCS1Format(String privateKey) {
 		 try {
-			 PEMParser pemParser = new PEMParser(new FileReader(privateKeyFile));
+			 PEMParser pemParser=new PEMParser(new StringReader(privateKey));
 			 JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
 			 
 			 Object object = pemParser.readObject();

@@ -1,15 +1,16 @@
 package com.pbkk.finalproject.tcdelivery.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
-import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -77,13 +78,15 @@ public class SecurityServiceImpl implements SecurityService{
         }
 	}
 	
-	private File readFile(String fileName){
-		ClassLoader classLoader = getClass().getClassLoader();
-		return new File(Objects.requireNonNull(classLoader.getResource(fileName)).getFile());
+	private String readFile(String fileName) throws IOException{
+		
+		InputStream input = new ClassPathResource(fileName).getInputStream();
+        byte[] bytes = IOUtils.toByteArray(input);
+        return new String(bytes);
 	}
 	
 	@Override
-	public int getUserId()
+	public int getUserId() throws IOException
 	{
 		ServletRequestAttributes reqAttributes = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = reqAttributes.getRequest();
@@ -111,7 +114,7 @@ public class SecurityServiceImpl implements SecurityService{
 	}
 	
 	@Override
-	public DecodedJWT verifyToken(String token) {
+	public DecodedJWT verifyToken(String token) throws IOException {
 		try
 		{
 			RSAPublicKey publicKey=RSAKeysLoader.createPublicKeyPKCS1Format(readFile("key/jwtRS256.key"));//Get the key instance

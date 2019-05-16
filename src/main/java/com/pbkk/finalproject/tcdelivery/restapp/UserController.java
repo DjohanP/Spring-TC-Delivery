@@ -1,5 +1,6 @@
 package com.pbkk.finalproject.tcdelivery.restapp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -91,7 +92,7 @@ public class UserController {
 				@RequestParam(value = "oldpassword") String oldPassword,
 				@RequestParam(value = "newpassword") String newPassword,
 				@RequestParam(value = "confirmpassword") String confirmPassword
-			) 
+			) throws IOException 
 	{
 		Integer userId=securityService.getUserId();
 		
@@ -171,7 +172,7 @@ public class UserController {
 				@RequestParam(value = "name") String name,
 				@RequestParam(value = "email") String email,
 				@RequestParam(value = "phone_number") String phoneNumber
-			) 
+			) throws IOException 
 	{
 		Integer userId=securityService.getUserId();
 		
