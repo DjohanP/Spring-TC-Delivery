@@ -20,7 +20,7 @@
 |GET| /user | - | User |Get all users. |
 |GET| /user/{id} | - | User | Get user by id. |
 |POST| /token | email, password | - |Login and get token. |
-|POST| /revoke | email, password | - |Logout and delete token. |
+|POST| /revoke | - | - |Logout and delete token. |
 |POST| /username | username | User |Check registered user using username. |
 |POST| /email | email | User |Check registered user using email. |
 |PUT| /password | oldpassword, newpassword, confirmpassword | User |Change password by user. |
