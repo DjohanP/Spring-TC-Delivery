@@ -17,10 +17,9 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /user | - | User |Get all users. |
-|GET| /user/{id} | - | User | Get user by id. |
+|GET| /user/{id} | - | User | Get active user by id. |
 |POST| /token | email, password | - |Login and get token. |
-|POST| /revoke | - | - |Logout and delete token. |
+|POST| /revoke | - | User |Logout and delete token. |
 |POST| /username | username | User |Check registered user using username. |
 |POST| /email | email | User |Check registered user using email. |
 |PUT| /password | oldpassword, newpassword, confirmpassword | User |Change password by user. |
@@ -31,8 +30,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /customer/ | - | User |Get all customers. |
-|GET| /customer/{id} | - | User |Get customer by id. |
+|GET| /customer/ | - | User |Get all active customers. |
+|GET| /customer/{id} | - | User |Get active customer by id. |
 |POST| /customer | username, name, email, password, phone_number | - |Register new customer. |
 
 **RESTAURANT**
@@ -40,8 +39,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /restaurant/ | - | User | Get all restaurants. |
-|GET| /restaurant/{id} | - | User | Get restaurant by id. |
+|GET| /restaurant/ | - | User | Get all active restaurants. |
+|GET| /restaurant/{id} | - | User | Get active restaurant by id. |
 |POST| /restaurant | username, name, email, password, phone_number | Admin |Register new restaurant. |
 
 **DRIVER**
@@ -49,14 +48,15 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /driver/ | - | User | Get all drivers. |
-|GET| /driver/{id} | - | User | Get driver by id. |
+|GET| /driver/ | - | User | Get all active drivers. |
+|GET| /driver/{id} | - | User | Get active driver by id. |
 |POST| /driver | username, name, email, password, phone_number | Admin |Register new driver. |
 
 **ADMIN**
 ---
 | Method | End Point | Parameter | Privilege |Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
+|GET| /user | - | Admin |Get all active and deleted users. |
 |POST| /admin | username, name, email, password, phone_number | Admin | Register new admin. |
 |PUT| /biodata/{id} | username, name, email, phone_number | Admin |Change biodata by admin. |
 |PUT| /password/{id} | newpassword | Admin | Change password by admin. |

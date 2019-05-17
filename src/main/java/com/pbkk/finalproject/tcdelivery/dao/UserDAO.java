@@ -29,7 +29,7 @@ public class UserDAO {
 	public User findById(Integer id)
 	{
 		User usr=userRepository.findByIduser(id);
-		if(usr!=null)
+		if(usr!=null && usr.getStatus()==1)
 		{
 			return new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber());
 		}
@@ -42,7 +42,7 @@ public class UserDAO {
 		if(id!=null)
 		{
 			User usr=userRepository.findByIduser(id);
-			if(usr!=null&&usr.getRole()==1)
+			if(usr!=null && usr.getRole()==1 && usr.getStatus()==1)
 			{
 				customers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
@@ -67,7 +67,7 @@ public class UserDAO {
 		if(id!=null)
 		{
 			User usr=userRepository.findByIduser(id);
-			if(usr!=null&&usr.getRole()==4)
+			if(usr!=null && usr.getRole()==4 && usr.getStatus()==1)
 			{
 				drivers.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
@@ -92,7 +92,7 @@ public class UserDAO {
 		if(id!=null)
 		{
 			User usr=userRepository.findByIduser(id);
-			if(usr!=null&&usr.getRole()==2)
+			if(usr!=null && usr.getRole()==2 && usr.getStatus()==1)
 			{
 				restaurants.add(new User(usr.getId(),usr.getName(),usr.getUserName(),usr.getRole(),usr.getStatus(),usr.getEmail(),usr.getPhoneNumber()));
 			}
