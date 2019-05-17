@@ -98,9 +98,9 @@ public class UserController {
 	{
 		if(userDAO.checkUsername(username)==false)
 		{
-			return Util.getSuccessResult("Username available");
+			return Util.getErrorResult("Username already used");
 		}
-		return Util.getErrorResult("Username not available");
+		return Util.getSuccessResult("Username available");
 	}
 	
 	@ResponseBody
@@ -112,8 +112,8 @@ public class UserController {
 	{
 		if(userDAO.checkEmail(email)==false)
 		{
-			return Util.getSuccessResult("Email available");
+			return Util.getErrorResult("Email already used");
 		}
-		return Util.getErrorResult("Email not available");
+		return Util.getSuccessResult("Email available");
 	}
 }
