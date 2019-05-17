@@ -17,8 +17,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /user | - | User |Get all active users. |
-|GET| /user/{id} | - | User | Get active users by id. |
+|GET| /user | - | User |Get all users. |
+|GET| /user/{id} | - | User | Get user by id. |
 |POST| /token | email, password | - |Login and get token. |
 |POST| /revoke | email, password | - |Logout and delete token. |
 |POST| /username | username | User |Check registered user using username. |
@@ -31,8 +31,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /customer/ | - | User |Get all active customers. |
-|GET| /customer/{id} | - | User |Get active customers by id. |
+|GET| /customer/ | - | User |Get all customers. |
+|GET| /customer/{id} | - | User |Get customer by id. |
 |POST| /customer | username, name, email, password, phone_number | - |Register new customer. |
 
 **RESTAURANT**
@@ -40,8 +40,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /restaurant/ | - | User | Get all active restaurants. |
-|GET| /restaurant/{id} | - | User | Get active restaurants by id. |
+|GET| /restaurant/ | - | User | Get all restaurants. |
+|GET| /restaurant/{id} | - | User | Get restaurant by id. |
 |POST| /restaurant | username, name, email, password, phone_number | Admin |Register new restaurant. |
 
 **DRIVER**
@@ -49,8 +49,8 @@
 
 | Method | End Point | Parameter | Privilege | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-|GET| /driver/ | - | User | Get all active drivers. |
-|GET| /driver/{id} | - | User | Get active drivers by id. |
+|GET| /driver/ | - | User | Get all drivers. |
+|GET| /driver/{id} | - | User | Get driver by id. |
 |POST| /driver | username, name, email, password, phone_number | Admin |Register new driver. |
 
 **ADMIN**
