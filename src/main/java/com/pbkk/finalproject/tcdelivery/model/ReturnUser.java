@@ -54,8 +54,20 @@ public class ReturnUser {
 		this.username = username;
 	}
 
-	public Integer getRole() {
-		return role;
+	public String getRole() {
+		if(this.role == 1) {
+			return "Customer";
+		}
+		else if(this.role == 2) {
+			return "Restaurant";
+		}
+		else if(this.role == 3) {
+			return "Admin";
+		}
+		else if(this.role == 4) {
+			return "Driver";
+		}
+		return null;
 	}
 
 	public void setRole(Integer role) {
