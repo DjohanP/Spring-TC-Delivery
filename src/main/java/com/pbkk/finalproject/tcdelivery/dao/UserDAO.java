@@ -134,23 +134,25 @@ public class UserDAO {
 		{
 			return true;
 		}
-		else
+		else if(checkUser.getStatus() == 0)
 		{
 			return false;
 		}
+		return false;
 	}
 	
 	public boolean checkEmail(String email)
 	{
 		User checkUser=userRepository.findByEmail(email);
-		if(checkUser==null)
+		if(checkUser == null)
 		{
 			return true;
 		}
-		else
+		else if(checkUser.getStatus() == 0)
 		{
 			return false;
 		}
+		return false;
 	}
 	
 	public void deleteUser(Integer userId)
